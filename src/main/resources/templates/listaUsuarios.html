@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head th:insert="~{../static/fragments/head :: head}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista usuários</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.edit').click(function() {
+                var userId = $(this).data('id');
+                $.ajax({
+                    url: '/usuarios/' + userId,
+                    type: 'GET',
+                    success: function(usuario) {
+                        $('#editEmployeeModal input[name="nomeConta"]').val(usuario.nomeConta);
+                        $('#editEmployeeModal input[name="senha"]').val(usuario.senha);
+                        $('#editEmployeeModal input[name="email"]').val(usuario.email);
+                        $('#editEmployeeModal input[name="dataNascimento"]').val(usuario.dataNascimento);
+                        $('#editEmployeeModal select[name="genero"]').val(usuario.genero);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Lista usuários</h1>
+    <table class="table">
+        <caption>Tabela de usuários</caption>
+        <thead class="thead-dark">
+            <tr>
+                <th>Nome</th>
+                <th>Senha</th>
+                <th>Email</th>
+                <th>Data Nascimento</th>
+                <th>Genêro</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="usuario : ${usuarios}">
+                <td th:text="${usuario.nomeConta}"></td>
+                <td th:text="${usuario.senha}"></td>
+                <td th:text="${usuario.email}"></td>
+                <td th:text="${usuario.dataNascimento}"></td>
+                <td th:text="${usuario.genero}"></td>
+                <div>
+                    <td><a th:href="@{/editarUsuario/{id}(id=${usuario.id})}">Editar</a></td>
+                    <td> <a th:href="@{#editEmployeeModal{id}(id=${usuario.id})}" class="edit" data-toggle="modal"><i
+                                class="material-icons" data-toggle="tooltip" title="Edit"
+                                data-target="#editEmployeeModal">&#xE254;</i></a></td>
+                    <td><a th:href="@{/deletarUsuario/{id}(id=${usuario.id})}">Deletar</a></td>
+                    <div th:insert="~{../static/fragments/modalEdit :: modalEdit}"></div>
+
+                    
+                </div>
+                </div>
+
+            </tr>
+        </tbody>
+    </table>
+
+
+</body>
+
+</html>

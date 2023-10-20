@@ -1,0 +1,44 @@
+<div th:fragment="modalEdit">
+
+    <!-- Edit Modal HTML -->
+   
+
+    <div th:id="editEmployeeModal__${usuario.id}__" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/editarUsuario" method="post" th:object="${usuario}">
+                    <div class="form-group m-2">
+                        <label for="nomeConta">Nome: </label>
+                        <input class="form-control" type="text" th:value="*{nomeConta}">
+                    </div>
+                    <div class="form-group m-2">
+                        <label for="senha">Senha:</label>
+                        <input class="form-control" type="password" th:field="*{senha}">
+                    </div>
+                    <div class="form-group m-2">
+                        <label for="email">Email:</label>
+                        <input class="form-control" type="email" th:field="*{email}">
+                    </div>
+                    <div class="form-group m-2">
+                        <label for="dataNascimento">Data de nascimento:</label>
+                        <input class="form-control" type="date" th:field="*{dataNascimento}">
+                    </div>
+                    <div class="form-group m-2">
+                        <label for="genero">Gênero:</label>
+                        <select class="custom-select custom-select-lg" name="genero" id="genero"
+                            th:field="*{genero}">
+                            <option value="MASCULINO">Masculino</option>
+                            <option value="FEMININO">Feminino</option>
+                            <option value="OUTRO">Outro</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal"
+                            value="Cancel">
+                        <input type="submit" class="btn btn-info" value="Save">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
