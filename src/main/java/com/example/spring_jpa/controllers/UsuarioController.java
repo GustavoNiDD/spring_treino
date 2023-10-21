@@ -1,7 +1,5 @@
 package com.example.spring_jpa.controllers;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,14 +50,16 @@ public class UsuarioController {
         return listaUsuarios();
     }
 
-    @GetMapping(value = "/editarUsuario/{id}")
-    public ModelAndView editarUsuario(@PathVariable("id") int id) {
-        ModelAndView mv = new ModelAndView("cadastrarUsuario");
-        Optional<Usuario> usuario = dao.getUsuarios().stream().filter(u -> u.getId() == id).findFirst();
-        if (usuario.isPresent()) {
-            mv.addObject("usuario", usuario.get());
-        }
-        return mv;
+    @PostMapping(value = "/editarUsuario/{id}")
+    public ModelAndView editarUsuario(@PathVariable("id") int id, @ModelAttribute("usuario") Usuario usuario) {
+        Usuario usuarioBox = dao.getUsuarioById(id);
+        usuarioBox.setNomeConta(usuario.getNomeConta());
+        usuarioBox.setEmail(usuario.getEmail());
+        usuarioBox.setSenha(usuario.getSenha());
+        usuarioBox.setDataNascimento(usuario.getDataNascimento());
+        usuarioBox.setGenero(usuario.getGenero());
+        dao.editarUsuario(usuarioBox);
+        return listaUsuarios();
     }
 
 }

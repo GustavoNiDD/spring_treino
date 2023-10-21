@@ -47,7 +47,7 @@
                 <td th:text="${usuario.dataNascimento}"></td>
                 <td th:text="${usuario.genero}"></td>
                 <div>
-                    <td><a th:href="@{/editarUsuario/{id}(id=${usuario.id})}">Editar</a></td>
+                    <!-- <td><a th:href="@{/editarUsuario/{id}(id=${usuario.id})}">Editar</a></td> -->
                     <td> <a th:href="@{#editEmployeeModal{id}(id=${usuario.id})}" class="edit" data-toggle="modal"><i
                                 class="material-icons" data-toggle="tooltip" title="Edit"
                                 data-target="#editEmployeeModal">&#xE254;</i></a></td>

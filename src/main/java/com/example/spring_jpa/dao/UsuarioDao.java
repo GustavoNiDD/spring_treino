@@ -37,8 +37,19 @@ public class UsuarioDao {
     }
 
     public void editarUsuario(Usuario usuario) {
-        String sql = "UPDATE usuario SET nome_data = ?, senha = ?, email = ?, data_nascimento = ?, genero = ? WHERE id = ?";
+        String sql = "UPDATE usuario SET nome_conta = ?, senha = ?, email = ?, data_nascimento = ?, genero = ? WHERE id = ?";
         db.update(sql, usuario.getNomeConta(), usuario.getSenha(), usuario.getEmail(), usuario.getDataNascimento(),
                 usuario.getGenero(), usuario.getId());
+    }
+
+    public Usuario getUsuarioById(int id) {
+        String sql = "SELECT * FROM usuario WHERE id = ?";
+        return db.queryForObject(sql, (res, rowNum) -> new Usuario(
+                res.getInt("id"),
+                res.getString("nome_conta"),
+                res.getString("senha"),
+                res.getString("email"),
+                res.getDate("data_nascimento"),
+                res.getString("genero")), id);
     }
 }
