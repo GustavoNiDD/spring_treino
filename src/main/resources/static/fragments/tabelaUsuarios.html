@@ -1,0 +1,63 @@
+<div th:fragment="tabelaUsuarios">
+    <h1>Lista usuários</h1>
+    <div class="form-group">
+        <form action="/buscaNome" method="get">
+            <div class="input-group">
+                
+                <input type="search" class="" placeholder="Buscar" name="search">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <select name="" id="">
+                        <option value="">Todos</option>
+                        <option value="">Id</option>
+                        <option value="">Nome</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+
+        <button class="btn btn-info float-right m-1" data-toggle="modal" data-target="#editEmployeeModal">
+            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+            Cadastrar Usuário
+        </button>
+    </div>
+    <table class="table">
+        <caption>Tabela de usuários</caption>
+        <thead class="thead-dark">
+            <tr>
+                <th>Nome</th>
+                <th>Senha</th>
+                <th>Email</th>
+                <th>Data Nascimento</th>
+                <th>Genêro</th>
+                <th>Editar</th>
+                <th>Deletar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="usuario : ${usuarios}">
+                <td th:text="${usuario.nomeConta}"></td>
+                <td th:text="${usuario.senha}"></td>
+                <td th:text="${usuario.email}"></td>
+                <td th:text="${usuario.dataNascimento}"></td>
+                <td th:text="${usuario.genero}"></td>
+                <div>
+                    <td> <a th:href="@{#editEmployeeModal{id}(id=${usuario.id})}" class="edit" data-toggle="modal"><i
+                                class="material-icons" data-toggle="tooltip" title="Edit"
+                                data-target="#editEmployeeModal">&#xE254;</i></a>
+                    </td>
+
+                    <td><a th:href="@{/deletarUsuario/{id}(id=${usuario.id})}">Deletar</a></td>
+
+                    <div th:insert="~{../static/fragments/modalEdit :: modalEdit}"></div>
+
+
+                </div>
+</div>
+
+</tr>
+</tbody>
+</table>
+</div>

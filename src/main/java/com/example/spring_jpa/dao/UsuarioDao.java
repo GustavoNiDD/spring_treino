@@ -52,4 +52,31 @@ public class UsuarioDao {
                 res.getDate("data_nascimento"),
                 res.getString("genero")), id);
     }
+
+    public List<Usuario> getUsuarioByNomeConta(String nomeConta) {
+        if (nomeConta == null) {
+            String sql = "select * from usuario;";
+            List<Usuario> usuarios = db.query(sql, (res, rowNum) -> new Usuario(
+                    res.getInt("id"),
+                    res.getString("nome_conta"),
+                    res.getString("senha"),
+                    res.getString("email"),
+                    res.getDate("data_nascimento"),
+                    res.getString("genero")), nomeConta, nomeConta);
+           
+                    return usuarios;
+        } else {
+            String sql = "select * from usuario where nome_conta like concat('%', ?, '%') and nome_conta like concat(?, '%')";
+            List<Usuario> usuarios = db.query(sql, (res, rowNum) -> new Usuario(
+                    res.getInt("id"),
+                    res.getString("nome_conta"),
+                    res.getString("senha"),
+                    res.getString("email"),
+                    res.getDate("data_nascimento"),
+                    res.getString("genero")), nomeConta, nomeConta);
+           
+                    return usuarios;
+        }
+
+    }
 }
