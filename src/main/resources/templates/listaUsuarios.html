@@ -2,19 +2,29 @@
 <html lang="pt-BR">
 
 <head th:insert="~{../static/fragments/head :: head}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista usuários</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../static/js/filtro.js"></script>
+
+  <title>Lista usuários</title>
+
 </head>
 
 <body>
-    
-
-    <div th:insert="~{../static/fragments/modalCadastro :: modalCadastro}"></div>
-
-    <div th:insert="~{../static/fragments/tabelaUsuarios:: tabelaUsuarios}"></div>
 
 
+  <div th:insert="~{../static/fragments/modalCadastro :: modalCadastro}"></div>
+
+  <div th:insert="~{../static/fragments/tabelaUsuarios:: tabelaUsuarios}"></div>
+
+  <script>
+    const filtro = document.querySelector("#filtro");
+    const formEdit = document.querySelector("#formEdit");
+
+    filtro.addEventListener("change", (event) => {
+      formEdit.action = `/busca${event.target.value}`;
+    });
+  </script>
 </body>
 
 </html>

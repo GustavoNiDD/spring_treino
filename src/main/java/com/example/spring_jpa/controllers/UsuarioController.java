@@ -1,19 +1,16 @@
 package com.example.spring_jpa.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.spring_jpa.dao.UsuarioDao;
 import com.example.spring_jpa.models.Usuario;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UsuarioController {
@@ -66,18 +63,59 @@ public class UsuarioController {
         return listaUsuarios();
     }
 
-    @GetMapping(value = "/busca")
-    public ModelAndView buscar(@RequestParam("search") int id) {
+    @GetMapping(value = "/buscaAll")
+    public ModelAndView buscarAll(@RequestParam("search") String all) {
+        all = all.trim();
         ModelAndView mv = new ModelAndView("listaUsuarios");
-        mv.addObject("usuarios", dao.getUsuarioById(id));
+        if (all.isEmpty()) {
+            mv.addObject("usuarios", dao.getUsuarios());
+        } else {
+            char c = all.charAt(0);
+            if (Character.isDigit(c)) {
+                mv.addObject("usuarios", dao.getUsuarioByAll(Integer.parseInt(all)));
+            } else {
+                mv.addObject("usuarios", dao.getUsuarioByAll(all));
+            }
+        }
+
         mv.addObject("usuario", new Usuario());
         return mv;
     }
 
-    @GetMapping(value = "/buscaNome")
-    public ModelAndView buscarNome(@RequestParam("search") String nome) {
+    @GetMapping(value = "/buscaMasculino")
+    public ModelAndView buscarGeneroM(@RequestParam("search") String all) {
+        all = all.trim();
         ModelAndView mv = new ModelAndView("listaUsuarios");
-        mv.addObject("usuarios", dao.getUsuarioByNomeConta(nome));
+        if (all.isEmpty()) {
+            mv.addObject("usuarios", dao.getUsuariosByGenero("MASCULINO"));
+        } else {
+            char c = all.charAt(0);
+            if (Character.isDigit(c)) {
+                mv.addObject("usuarios", dao.getUsuarioByGenero(Integer.parseInt(all), "MASCULINO"));
+            } else {
+                mv.addObject("usuarios", dao.getUsuarioByGenero(all, "MASCULINO"));
+            }
+        }
+
+        mv.addObject("usuario", new Usuario());
+        return mv;
+    }
+
+    @GetMapping(value = "/buscaFeminino")
+    public ModelAndView buscarGeneroF(@RequestParam("search") String all) {
+        all = all.trim();
+        ModelAndView mv = new ModelAndView("listaUsuarios");
+        if (all.isEmpty()) {
+            mv.addObject("usuarios", dao.getUsuariosByGenero("FEMININO"));
+        } else {
+            char c = all.charAt(0);
+            if (Character.isDigit(c)) {
+                mv.addObject("usuarios", dao.getUsuarioByGenero(Integer.parseInt(all), "FEMININO"));
+            } else {
+                mv.addObject("usuarios", dao.getUsuarioByGenero(all, "FEMININO"));
+            }
+        }
+
         mv.addObject("usuario", new Usuario());
         return mv;
     }
