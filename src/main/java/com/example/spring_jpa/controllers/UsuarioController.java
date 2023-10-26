@@ -31,14 +31,6 @@ public class UsuarioController {
         return mv;
     }
 
-    @GetMapping(value = "/cadastrarUsuario")
-    public ModelAndView paginaCadastro() {
-        ModelAndView mv = new ModelAndView("cadastrarUsuario");
-        mv.addObject("usuarios", dao.getUsuarios());
-        mv.addObject("usuario", new Usuario());
-        return mv;
-    }
-
     @PostMapping(value = "/cadastrarUsuario")
     public ModelAndView cadastrarUsuario(@ModelAttribute("usuario") Usuario usuario) {
         dao.addUsuario(usuario);
