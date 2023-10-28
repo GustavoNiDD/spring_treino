@@ -81,14 +81,14 @@ public class UsuarioDao {
                     res.getDate(dataNascimento),
                     res.getString(genero)), all);
         } else if (all instanceof String && !all.equals("")) {
-            String sql = "select * from usuario where nome_conta like concat('%', ?, '%') and nome_conta like concat(?, '%')";
+            String sql = "select * from usuario where lower(nome_conta) like ?";
             return db.query(sql, (res, rowNum) -> new Usuario(
                     res.getInt("id"),
                     res.getString(nomeConta),
                     res.getString(senha),
                     res.getString(email),
                     res.getDate(dataNascimento),
-                    res.getString(genero)), all, all);
+                    res.getString(genero)), "%" + all + "%");
         } else {
             return null;
         }
@@ -112,7 +112,7 @@ public class UsuarioDao {
                     res.getString(senha),
                     res.getString(email),
                     res.getDate(dataNascimento),
-                    res.getString(genero)), all, all,generoz);
+                    res.getString(genero)), all, all, generoz);
         } else {
             return null;
         }

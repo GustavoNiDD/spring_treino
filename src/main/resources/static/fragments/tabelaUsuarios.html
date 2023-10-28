@@ -1,9 +1,10 @@
-<div th:fragment="tabelaUsuarios">
+
+<div th:fragment="tabelaUsuarios" >
     <h1>Lista usuários</h1>
     <div class="form-group">
         <form action="/buscaAll" method="get" id="formEdit">
             <div class="input-group">
-                
+
                 <input type="search" class="" placeholder="Buscar" name="search">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="submit">
@@ -11,23 +12,23 @@
                     </button>
                     <label>
                         <select class="filtro" name="filtro" id="filtro">
-                          <option value="All">All</option>
-                          <option value="Masculino">Masculino</option>
-                          <option value="Feminino">Feminino</option>
+                            <option value="All">All</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
                         </select>
-                      </label>
+                    </label>
                 </div>
             </div>
         </form>
-        
+
         <button class="btn btn-info float-right m-1" data-toggle="modal" data-target="#editEmployeeModal">
-            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-            Cadastrar Usuário
+            <i class="fa fa-plus" data-toggle="tooltip" title="Edit"></i>
+            <b>Cadastrar Usuário</b>
         </button>
     </div>
     <table class="table">
         <caption>Tabela de usuários</caption>
-        <thead class="thead-dark">
+        <thead class="thead-dark text-center">
             <tr>
                 <th>Nome</th>
                 <th>Senha</th>
@@ -39,7 +40,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="usuario : ${usuarios}">
+            <tr th:each="usuario : ${usuarios}" class="text-center">
                 <td th:text="${usuario.nomeConta}"></td>
                 <td th:text="${usuario.senha}"></td>
                 <td th:text="${usuario.email}"></td>
@@ -51,7 +52,7 @@
                                 data-target="#editEmployeeModal">&#xE254;</i></a>
                     </td>
 
-                    <td><a th:href="@{/deletarUsuario/{id}(id=${usuario.id})}">Deletar</a></td>
+                    <td><a th:href="@{/deletarUsuario/{id}(id=${usuario.id})}" class="fa fa-trash text-danger"></a></td>
 
                     <div th:insert="~{../static/fragments/modalEdit :: modalEdit}"></div>
 

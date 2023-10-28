@@ -12,8 +12,7 @@
 
 <body>
 
-
-  <div th:insert="~{../static/fragments/modalCadastro :: modalCadastro}"></div>
+  <div th:insert="~{../static/fragments/modalCadastro :: modalCadastro}" ></div>
 
   <div th:insert="~{../static/fragments/tabelaUsuarios:: tabelaUsuarios}"></div>
 
@@ -25,25 +24,7 @@
       formEdit.action = `/busca${event.target.value}`;
     });
   </script>
-  <script>
-    function openEditModal() {
-        var form = document.getElementById("formularioTabuleiro");
-        var nomeConta = form.elements["nomeConta"].value;
-        var senha = form.elements["senha"].value;
-        var email = form.elements["email"].value;
-        var dataNascimento = form.elements["dataNascimento"].value;
-        var genero = form.elements["genero"].value;
 
-        var modal = document.getElementById("editEmployeeModal__${usuario.id}__");
-        modal.querySelector("input[name='nomeConta']").value = nomeConta;
-        modal.querySelector("input[name='senha']").value = senha;
-        modal.querySelector("input[name='email']").value = email;
-        modal.querySelector("input[name='dataNascimento']").value = dataNascimento;
-        modal.querySelector("select[name='genero']").value = genero;
-
-        $('#editEmployeeModal__${usuario.id}__').modal('show');
-    }
-</script>
 </body>
 
 </html>
